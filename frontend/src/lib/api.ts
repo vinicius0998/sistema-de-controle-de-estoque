@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// Em produção (Vercel), usa a variável de ambiente VITE_API_URL apontando para o Railway.
+// Em desenvolvimento local, usa o proxy do Vite (/api → localhost:3001).
 export const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL ?? '/api',
+  withCredentials: true,
 })
 
 export interface Produto {
