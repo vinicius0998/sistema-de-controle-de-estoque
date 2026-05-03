@@ -15,13 +15,13 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage, limits: { fileSize: 2 * 1024 * 1024 } })
 
-configuraacaoRouter.get('/', async (_req, res) => {
+configuracaoRouter.get('/', async (_req, res) => {
   let config = await prisma.configuracao.findUnique({ where: { id: 1 } })
   if (!config) config = await prisma.configuracao.create({ data: { id: 1, nomeEmpresa: 'Minha Empresa', estoqueMinimo: 5 } })
   res.json(config)
 })
 
-configuraacaoRouter.put('/', async (req, res) => {
+configuracaoRouter.put('/', async (req, res) => {
   const { nomeEmpresa, estoqueMinimo } = req.body
   const config = await prisma.configuracao.upsert({
     where: { id: 1 },
@@ -31,7 +31,7 @@ configuraacaoRouter.put('/', async (req, res) => {
   res.json(config)
 })
 
-configuraacaoRouter.post('/logo', upload.single('logo'), async (req, res) => {
+configuracaoRouter.post('/logo', upload.single('logo'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Nenhum arquivo enviado' })
   const logoPath = `/uploads/${req.file.filename}`
   const config = await prisma.configuracao.upsert({
