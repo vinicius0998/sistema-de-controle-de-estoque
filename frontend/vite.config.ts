@@ -7,6 +7,8 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
+  // O proxy só é usado em dev local (npm run dev).
+  // Em produção (Vercel), a variável VITE_API_URL aponta direto para o Railway.
   server: {
     port: 5173,
     proxy: {
